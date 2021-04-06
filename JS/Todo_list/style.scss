@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #eee;
+  font-family: sans-serif;
+}
+
+.container {
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 10px;
+  height: 570px;
+  overflow: hidden;
+  header {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    background-image: linear-gradient(
+        0deg,
+        rgba(6, 6, 6, 0.4) 0%,
+        rgba(5, 5, 14, 0.4) 33%,
+        rgba(246, 246, 246, 0.4) 100%
+      ),
+      url("https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=755&q=80");
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: flex-end;
+    h2 {
+      font-size: 24px;
+      color: #fff;
+      padding: 15px 10px;
+    }
+    i {
+      position: absolute;
+      font-size: 24px;
+      color: #fff;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  }
+}
+
+.all-works {
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  color: blue;
+}
+
+.works-list {
+  padding: 10px 15px;
+  color: #000;
+  flex: 1;
+  overflow-y: auto;
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    position: relative;
+    .add-work {
+      cursor: pointer;
+    }
+    &:not(:last-child) {
+      border-bottom: 1px solid #cecece;
+    }
+    i {
+      margin-right: 10px;
+    }
+    .remove-work {
+      cursor: pointer;
+    }
+  }
+}
+
+.works-item.done {
+  div {
+    .none-checked {
+      display: none;
+    }
+    .checked {
+      display: inline-block;
+    }
+    span {
+      position: relative;
+      color: #7b7171;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #7b7171;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+.checked {
+  display: none;
+  color: green;
+}
+
+.input-group {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+  i {
+    font-size: 24px;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+  input {
+    outline: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    font-size: 16px;
+    margin-left: 20px;
+    &::-webkit-input-placeholder {
+      color: rgb(44, 43, 43);
+      font-size: 14px;
+    }
+  }
+}
