@@ -1,41 +1,72 @@
-import Header from "./components/Header";
-import Product from "./components/Product";
+import React from "react";
+import ColorPicker from "./components/ColorPicker";
+import SizePicker from "./components/SizePicker";
+import Reset from "./components/Reset";
 
-function App() {
-  let arr = [1, 2, 3, 4, 5];
-  let arrTag = arr.map((item, index) => <span key={index}>{item}</span>);
-  return (
-    <div className="App">
-      <Header />
-      <div className="row">
-        <div className="col-lg-3">
-          <Product
-            name="Test title"
-            src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80"
-          />
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      color: "red",
+      fontSize: 18,
+    };
+    this.setAppColor = this.setAppColor.bind(this);
+    this.setAppFontSize = this.setAppFontSize.bind(this);
+    this.setDefault = this.setDefault.bind(this);
+  }
+  setAppColor(newColor) {
+    this.setState({
+      color: newColor,
+    });
+  }
+  setAppFontSize(newSize) {
+    if (newSize >= 8 && newSize <= 32) {
+      this.setState({
+        fontSize: newSize,
+      });
+    }
+  }
+  setDefault(color, size) {
+    this.setState({
+      color: color,
+      fontSize: size,
+    });
+  }
+  render() {
+    return (
+      <div className="App container">
+        <div className="row">
+          <div className="col-6">
+            <ColorPicker
+              color={this.state.color}
+              setAppColor={this.setAppColor}
+            />
+          </div>
+          <div className="col-6">
+            <SizePicker
+              size={this.state.fontSize}
+              setAppFontSize={this.setAppFontSize}
+            />
+          </div>
+          <div className="col-12">
+            <Reset setDefault={this.setDefault} />
+          </div>
         </div>
-        <div className="col-lg-3">
-          <Product
-            name="Title 2"
-            src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80"
-          />
-        </div>
-        <div className="col-lg-3">
-          <Product
-            name="Title 2"
-            src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80"
-          />
-        </div>
-        <div className="col-lg-3">
-          <Product
-            name="Title 2"
-            src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80"
-          />
+        <div className="row mt-3">
+          <h2
+            style={{
+              color: this.state.color,
+              fontSize: this.state.fontSize,
+              border: `1px solid ${this.state.color}`,
+              padding: 15,
+            }}
+          >
+            This is result !!!
+          </h2>
         </div>
       </div>
-      {arrTag}
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
