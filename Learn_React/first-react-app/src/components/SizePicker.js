@@ -2,9 +2,6 @@ import React from "react";
 import "./StylePicker.css";
 
 class SizePicker extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div>
@@ -15,13 +12,13 @@ class SizePicker extends React.Component {
           <div className="card-body">
             <button
               className="btn btn-primary"
-              onClick={() => this.props.setAppFontSize(this.props.size + 1)}
+              onClick={() => this.props.setAppFontSize(this.props.size + 2)}
             >
               Increase
             </button>
             <button
               className="btn btn-primary"
-              onClick={() => this.props.setAppFontSize(this.props.size - 1)}
+              onClick={() => this.props.setAppFontSize(this.props.size - 2)}
             >
               Decrease
             </button>
