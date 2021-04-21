@@ -5,7 +5,12 @@ class TaskList extends React.Component {
   render() {
     const { tasks } = this.props;
     const taskItems = tasks.map((item, index) => (
-      <TaskItem task={item} index={index} key={item.id} />
+      <TaskItem
+        task={item}
+        index={index}
+        key={item.id}
+        updateStatus={this.props.updateStatus}
+      />
     ));
     return (
       <table className="table table-bordered bg-light">

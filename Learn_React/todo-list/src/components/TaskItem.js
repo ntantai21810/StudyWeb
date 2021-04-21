@@ -12,6 +12,7 @@ class TaskItem extends React.Component {
             <span
               className="badge badge-success p-2"
               style={{ cursor: "pointer" }}
+              onClick={() => this.props.updateStatus(this.props.index)}
             >
               Done
             </span>
@@ -19,6 +20,7 @@ class TaskItem extends React.Component {
             <span
               className="badge badge-primary p-2"
               style={{ cursor: "pointer" }}
+              onClick={() => this.props.updateStatus(this.props.index)}
             >
               Working
             </span>

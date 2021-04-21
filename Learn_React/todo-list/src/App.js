@@ -13,6 +13,7 @@ class App extends React.Component {
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.addTask = this.addTask.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +59,15 @@ class App extends React.Component {
     }
   }
 
+  updateStatus(index) {
+    let { tasks } = this.state;
+    tasks[index].status = !tasks[index].status;
+    this.setState({
+      tasks: tasks,
+    });
+    localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
+  }
+
   render() {
     const { tasks, isDisplayForm } = this.state;
     return (
@@ -76,7 +86,7 @@ class App extends React.Component {
               <i className="fas fa-plus mr-3"></i>Add task
             </button>
             <TaskControl />
-            <TaskList tasks={tasks} />
+            <TaskList tasks={tasks} updateStatus={this.updateStatus} />
           </div>
         </div>
       </div>

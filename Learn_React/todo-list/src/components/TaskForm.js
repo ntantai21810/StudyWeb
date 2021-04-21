@@ -5,7 +5,7 @@ class TaskForm extends React.Component {
     super(props);
     this.state = {
       taskName: "",
-      status: true,
+      status: false,
     };
     this.addTask = this.addTask.bind(this);
     this.cancelAddTask = this.cancelAddTask.bind(this);
@@ -15,12 +15,13 @@ class TaskForm extends React.Component {
   addTask() {
     this.props.addTask(this.state.taskName, this.state.status);
     this.cancelAddTask();
+    this.props.closeForm();
   }
 
   cancelAddTask() {
     this.setState({
       taskName: "",
-      status: true,
+      status: false,
     });
   }
 
