@@ -26,10 +26,10 @@ class TaskItem extends React.Component {
         </td>
         <td className="text-center d-flex justify-content-around">
           <button className="btn btn-warning text-white">
-            <i class="fas fa-pen mr-2"></i>Update
+            <i className="fas fa-pen mr-2"></i>Update
           </button>
           <button className="btn btn-danger text-white">
-            <i class="fas fa-trash-alt mr-2"></i>Delete
+            <i className="fas fa-trash-alt mr-2"></i>Delete
           </button>
         </td>
       </tr>

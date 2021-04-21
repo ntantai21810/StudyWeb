@@ -10,17 +10,23 @@ class App extends React.Component {
       tasks: [],
       isDisplayForm: false,
     };
-    this.addTask = this.addTask.bind(this);
+    this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
+    this.addTask = this.addTask.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      tasks: JSON.parse(localStorage.getItem("tasks")),
-    });
+    if (localStorage && localStorage.getItem("tasks")) {
+      this.setState({
+        tasks: JSON.parse(localStorage.getItem("tasks")),
+      });
+    } else
+      this.setState({
+        tasks: [],
+      });
   }
 
-  addTask() {
+  openForm() {
     if (!this.state.isDisplayForm)
       this.setState({
         isDisplayForm: !this.state.isDisplayForm,
@@ -35,6 +41,23 @@ class App extends React.Component {
     }
   }
 
+  addTask(taskName, status) {
+    if (taskName) {
+      const { tasks } = this.state;
+      tasks.push({
+        id:
+          Math.random().toString(36).substring(2, 15) +
+          Math.random().toString(36).substring(2, 15),
+        name: taskName,
+        status: status,
+      });
+      this.setState({
+        tasks: tasks,
+      });
+      localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
+    }
+  }
+
   render() {
     const { tasks, isDisplayForm } = this.state;
     return (
@@ -43,14 +66,14 @@ class App extends React.Component {
         <div className="row">
           {isDisplayForm ? (
             <div className="col-4">
-              <TaskForm closeForm={this.closeForm} />
+              <TaskForm closeForm={this.closeForm} addTask={this.addTask} />
             </div>
           ) : (
             ""
           )}
           <div className={isDisplayForm ? "col-8" : "col-12"}>
-            <button className="btn btn-primary" onClick={this.addTask}>
-              <i class="fas fa-plus mr-3"></i>Add task
+            <button className="btn btn-primary" onClick={this.openForm}>
+              <i className="fas fa-plus mr-3"></i>Add task
             </button>
             <TaskControl />
             <TaskList tasks={tasks} />

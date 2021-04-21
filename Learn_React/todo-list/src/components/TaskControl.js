@@ -10,7 +10,7 @@ class TaskControl extends React.Component {
         </div>
         <div className="col-2">
           <button className="btn btn-primary">
-            Sort<i class="fas fa-sort ml-3"></i>
+            Sort<i className="fas fa-sort ml-3"></i>
           </button>
         </div>
       </div>

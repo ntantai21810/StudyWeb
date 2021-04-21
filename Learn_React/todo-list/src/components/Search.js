@@ -12,7 +12,7 @@ class Search extends React.Component {
             placeholder="Search task"
           />
           <button className="btn btn-primary d-flex align-items-center">
-            <i class="fas fa-search-plus mr-3"></i>Search
+            <i className="fas fa-search-plus mr-3"></i>Search
           </button>
         </div>
       </div>
