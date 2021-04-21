@@ -4,7 +4,14 @@ class TaskForm extends React.Component {
   render() {
     return (
       <div className="card">
-        <h5 className="card-header">Add Task</h5>
+        <h5 className="card-header d-flex justify-content-between align-items-center">
+          Add Task{" "}
+          <i
+            className="far fa-times-circle"
+            style={{ cursor: "pointer" }}
+            onClick={this.props.closeForm}
+          ></i>
+        </h5>
         <div className="card-body">
           <div className="form-group">
             <label htmlFor="inputTask">Name</label>
