@@ -30,7 +30,10 @@ class TaskItem extends React.Component {
           <button className="btn btn-warning text-white">
             <i className="fas fa-pen mr-2"></i>Update
           </button>
-          <button className="btn btn-danger text-white">
+          <button
+            className="btn btn-danger text-white"
+            onClick={() => this.props.deleteTask(this.props.index)}
+          >
             <i className="fas fa-trash-alt mr-2"></i>Delete
           </button>
         </td>

@@ -14,6 +14,7 @@ class App extends React.Component {
     this.closeForm = this.closeForm.bind(this);
     this.addTask = this.addTask.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +69,15 @@ class App extends React.Component {
     localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
   }
 
+  deleteTask(index) {
+    let { tasks } = this.state;
+    tasks.splice(index, 1);
+    this.setState({
+      tasks: tasks,
+    });
+    localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
+  }
+
   render() {
     const { tasks, isDisplayForm } = this.state;
     return (
@@ -86,7 +96,11 @@ class App extends React.Component {
               <i className="fas fa-plus mr-3"></i>Add task
             </button>
             <TaskControl />
-            <TaskList tasks={tasks} updateStatus={this.updateStatus} />
+            <TaskList
+              tasks={tasks}
+              updateStatus={this.updateStatus}
+              deleteTask={this.deleteTask}
+            />
           </div>
         </div>
       </div>
