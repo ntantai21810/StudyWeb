@@ -11,6 +11,8 @@ class App extends React.Component {
       isDisplayForm: false,
       editingTask: null,
       filterName: "",
+      sortBy: "",
+      sortAsc: true,
     };
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
@@ -20,6 +22,7 @@ class App extends React.Component {
     this.updateTask = this.updateTask.bind(this);
     this.openAddForm = this.openAddForm.bind(this);
     this.searchTask = this.searchTask.bind(this);
+    this.sortTask = this.sortTask.bind(this);
   }
 
   componentDidMount() {
@@ -59,7 +62,7 @@ class App extends React.Component {
   }
 
   submitForm(taskName, status) {
-    let { tasks } = this.state;
+    let tasks = [...this.state.tasks];
 
     //Update task
     if (this.state.editingTask) {
@@ -85,33 +88,34 @@ class App extends React.Component {
     this.setState({
       tasks: tasks,
     });
-    localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
   updateStatus(index) {
-    let { tasks } = this.state;
+    let tasks = [...this.state.tasks];
     tasks[index].status = !tasks[index].status;
     this.setState({
       tasks: tasks,
     });
-    localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
   deleteTask(index) {
-    let { tasks } = this.state;
+    let tasks = [...this.state.tasks];
     tasks.splice(index, 1);
     this.setState({
       tasks: tasks,
     });
-    localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
   updateTask(index) {
-    let { tasks } = this.state;
+    let tasks = [...this.state.tasks];
     this.setState({
       editingTask: tasks[index],
     });
     this.openForm();
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
   searchTask(name) {
@@ -120,13 +124,28 @@ class App extends React.Component {
     });
   }
 
+  sortTask(sortBy, sortAsc) {
+    this.setState({
+      sortBy: sortBy,
+      sortAsc: sortAsc,
+    });
+  }
+
   render() {
-    let { tasks, isDisplayForm, filterName } = this.state;
+    let tasks = [...this.state.tasks];
+    let { isDisplayForm, filterName, sortBy, sortAsc } = this.state;
     if (filterName) {
       tasks = tasks.filter(
         (task) =>
           task.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
       );
+    }
+    if (sortBy) {
+      if (sortBy === "name") sortAsc = !sortAsc;
+      tasks.sort((task1, task2) => {
+        let check = task1[sortBy] > task2[sortBy];
+        return check === sortAsc ? -1 : 1;
+      });
     }
     return (
       <div className="container mt-3">
@@ -147,7 +166,10 @@ class App extends React.Component {
             <button className="btn btn-primary" onClick={this.openAddForm}>
               <i className="fas fa-plus mr-3"></i>Add task
             </button>
-            <TaskControl searchTask={this.searchTask} />
+            <TaskControl
+              searchTask={this.searchTask}
+              sortTask={this.sortTask}
+            />
             <TaskList
               tasks={tasks}
               updateStatus={this.updateStatus}

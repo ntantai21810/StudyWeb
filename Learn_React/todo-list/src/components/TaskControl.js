@@ -1,5 +1,6 @@
 import React from "react";
 import Search from "./Search";
+import Sort from "./Sort";
 
 class TaskControl extends React.Component {
   render() {
@@ -9,9 +10,7 @@ class TaskControl extends React.Component {
           <Search searchTask={this.props.searchTask} />
         </div>
         <div className="col-2">
-          <button className="btn btn-primary">
-            Sort<i className="fas fa-sort ml-3"></i>
-          </button>
+          <Sort sortTask={this.props.sortTask} />
         </div>
       </div>
     );
