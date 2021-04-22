@@ -11,6 +11,7 @@ class TaskList extends React.Component {
         key={item.id}
         updateStatus={this.props.updateStatus}
         deleteTask={this.props.deleteTask}
+        updateTask={this.props.updateTask}
       />
     ));
     return (

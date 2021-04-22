@@ -27,7 +27,10 @@ class TaskItem extends React.Component {
           )}
         </td>
         <td className="text-center d-flex justify-content-around">
-          <button className="btn btn-warning text-white">
+          <button
+            className="btn btn-warning text-white"
+            onClick={() => this.props.updateTask(this.props.index)}
+          >
             <i className="fas fa-pen mr-2"></i>Update
           </button>
           <button

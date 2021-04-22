@@ -12,8 +12,30 @@ class TaskForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.editingTask) {
+      this.setState({
+        taskName: this.props.editingTask.name,
+        status: this.props.editingTask.status,
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.editingTask) {
+      this.setState({
+        taskName: nextProps.editingTask.name,
+        status: nextProps.editingTask.status,
+      });
+    } else
+      this.setState({
+        taskName: "",
+        status: false,
+      });
+  }
+
   addTask() {
-    this.props.addTask(this.state.taskName, this.state.status);
+    this.props.submitForm(this.state.taskName, this.state.status);
     this.cancelAddTask();
     this.props.closeForm();
   }
@@ -37,7 +59,7 @@ class TaskForm extends React.Component {
     return (
       <div className="card">
         <h5 className="card-header d-flex justify-content-between align-items-center">
-          Add Task{" "}
+          {this.props.editingTask ? "Update task" : "Add task"}
           <i
             className="far fa-times-circle"
             style={{ cursor: "pointer" }}
@@ -73,10 +95,11 @@ class TaskForm extends React.Component {
         </div>
         <div className="task-control d-flex justify-content-around mb-3">
           <button className="btn btn-primary" onClick={this.addTask}>
-            <i className="fas fa-plus mr-3"></i>Add
+            <i className="fas fa-plus mr-3"></i>
+            {this.props.editingTask ? "Update" : "Add"}
           </button>
           <button className="btn btn-danger" onClick={this.cancelAddTask}>
-            <i className="fas fa-times mr-3"></i>Reset
+            <i className="fas fa-times mr-3"></i>Clear
           </button>
         </div>
       </div>

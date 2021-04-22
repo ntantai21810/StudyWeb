@@ -9,12 +9,15 @@ class App extends React.Component {
     this.state = {
       tasks: [],
       isDisplayForm: false,
+      editingTask: null,
     };
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
-    this.addTask = this.addTask.bind(this);
+    this.submitForm = this.submitForm.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.updateTask = this.updateTask.bind(this);
+    this.openAddForm = this.openAddForm.bind(this);
   }
 
   componentDidMount() {
@@ -31,21 +34,44 @@ class App extends React.Component {
   openForm() {
     if (!this.state.isDisplayForm)
       this.setState({
-        isDisplayForm: !this.state.isDisplayForm,
+        isDisplayForm: true,
       });
+  }
+
+  openAddForm() {
+    if (!this.state.isDisplayForm || this.state.editingTask) {
+      this.setState({
+        isDisplayForm: true,
+        editingTask: null,
+      });
+    }
   }
 
   closeForm() {
     if (this.state.isDisplayForm) {
       this.setState({
-        isDisplayForm: !this.state.isDisplayForm,
+        isDisplayForm: false,
+        editingTask: null,
       });
     }
   }
 
-  addTask(taskName, status) {
-    if (taskName) {
-      const { tasks } = this.state;
+  submitForm(taskName, status) {
+    let { tasks } = this.state;
+
+    //Update task
+    if (this.state.editingTask) {
+      for (let task of tasks) {
+        if (task.id === this.state.editingTask.id) {
+          task.name = taskName;
+          task.status = status;
+          break;
+        }
+      }
+    }
+
+    //Add task
+    else if (taskName) {
       tasks.push({
         id:
           Math.random().toString(36).substring(2, 15) +
@@ -53,11 +79,11 @@ class App extends React.Component {
         name: taskName,
         status: status,
       });
-      this.setState({
-        tasks: tasks,
-      });
-      localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
     }
+    this.setState({
+      tasks: tasks,
+    });
+    localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
   }
 
   updateStatus(index) {
@@ -78,6 +104,14 @@ class App extends React.Component {
     localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
   }
 
+  updateTask(index) {
+    let { tasks } = this.state;
+    this.setState({
+      editingTask: tasks[index],
+    });
+    this.openForm();
+  }
+
   render() {
     const { tasks, isDisplayForm } = this.state;
     return (
@@ -86,13 +120,17 @@ class App extends React.Component {
         <div className="row">
           {isDisplayForm ? (
             <div className="col-4">
-              <TaskForm closeForm={this.closeForm} addTask={this.addTask} />
+              <TaskForm
+                closeForm={this.closeForm}
+                submitForm={this.submitForm}
+                editingTask={this.state.editingTask}
+              />
             </div>
           ) : (
             ""
           )}
           <div className={isDisplayForm ? "col-8" : "col-12"}>
-            <button className="btn btn-primary" onClick={this.openForm}>
+            <button className="btn btn-primary" onClick={this.openAddForm}>
               <i className="fas fa-plus mr-3"></i>Add task
             </button>
             <TaskControl />
@@ -100,6 +138,7 @@ class App extends React.Component {
               tasks={tasks}
               updateStatus={this.updateStatus}
               deleteTask={this.deleteTask}
+              updateTask={this.updateTask}
             />
           </div>
         </div>
