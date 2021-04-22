@@ -6,7 +6,7 @@ class TaskControl extends React.Component {
     return (
       <div className="row mt-3">
         <div className="col-6">
-          <Search />
+          <Search searchTask={this.props.searchTask} />
         </div>
         <div className="col-2">
           <button className="btn btn-primary">

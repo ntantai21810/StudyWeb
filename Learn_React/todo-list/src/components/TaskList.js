@@ -65,6 +65,7 @@ class TaskList extends React.Component {
                 placeholder="Filter task"
                 name="filterName"
                 onChange={this.handleChange}
+                value={this.state.filterName}
               />
             </td>
             <td>

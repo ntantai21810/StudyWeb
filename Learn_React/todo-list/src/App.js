@@ -10,6 +10,7 @@ class App extends React.Component {
       tasks: [],
       isDisplayForm: false,
       editingTask: null,
+      filterName: "",
     };
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
@@ -18,6 +19,7 @@ class App extends React.Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
     this.openAddForm = this.openAddForm.bind(this);
+    this.searchTask = this.searchTask.bind(this);
   }
 
   componentDidMount() {
@@ -112,8 +114,20 @@ class App extends React.Component {
     this.openForm();
   }
 
+  searchTask(name) {
+    this.setState({
+      filterName: name,
+    });
+  }
+
   render() {
-    const { tasks, isDisplayForm } = this.state;
+    let { tasks, isDisplayForm, filterName } = this.state;
+    if (filterName) {
+      tasks = tasks.filter(
+        (task) =>
+          task.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+      );
+    }
     return (
       <div className="container mt-3">
         <h1 className="text-center mb-3">To do list</h1>
@@ -133,7 +147,7 @@ class App extends React.Component {
             <button className="btn btn-primary" onClick={this.openAddForm}>
               <i className="fas fa-plus mr-3"></i>Add task
             </button>
-            <TaskControl />
+            <TaskControl searchTask={this.searchTask} />
             <TaskList
               tasks={tasks}
               updateStatus={this.updateStatus}
