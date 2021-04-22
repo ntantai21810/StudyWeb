@@ -2,8 +2,38 @@ import React from "react";
 import TaskItem from "./TaskItem";
 
 class TaskList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterName: "",
+      filterStatus: "",
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+
   render() {
-    const { tasks } = this.props;
+    let { tasks } = this.props;
+    if (this.state.filterName) {
+      tasks = tasks.filter(
+        (task) =>
+          task.name
+            .toLowerCase()
+            .indexOf(this.state.filterName.toLowerCase()) !== -1
+      );
+    }
+    tasks = tasks.filter((task) => {
+      if (!this.state.filterStatus) return true;
+      else
+        return (
+          task.status === (this.state.filterStatus === "done" ? true : false)
+        );
+    });
     const taskItems = tasks.map((item, index) => (
       <TaskItem
         task={item}
@@ -14,6 +44,7 @@ class TaskList extends React.Component {
         updateTask={this.props.updateTask}
       />
     ));
+
     return (
       <table className="table table-bordered bg-light">
         <thead>
@@ -31,12 +62,19 @@ class TaskList extends React.Component {
               <input
                 type="text"
                 className="form-control"
-                id="exampleInputEmail1"
                 placeholder="Filter task"
+                name="filterName"
+                onChange={this.handleChange}
               />
             </td>
             <td>
-              <select className="form-control" id="status">
+              <select
+                className="form-control"
+                id="status"
+                name="filterStatus"
+                onChange={this.handleChange}
+              >
+                <option value="">All</option>
                 <option value="done">Done</option>
                 <option value="working">Working</option>
               </select>
