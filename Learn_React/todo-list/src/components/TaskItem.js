@@ -6,7 +6,7 @@ class TaskItem extends React.Component {
     return (
       <tr>
         <th className="text-center">{this.props.index + 1}</th>
-        <td>{task.name}</td>
+        <td>{task.taskName}</td>
         <td className="text-center">
           {task.status ? (
             <span

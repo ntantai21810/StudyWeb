@@ -2,12 +2,12 @@ import React from "react";
 import TaskForm from "./components/TaskForm";
 import TaskControl from "./components/TaskControl";
 import TaskList from "./components/TaskList";
-
+import { conenct, connect } from "react-redux";
+import * as actions from "./actions/index";
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [],
       isDisplayForm: false,
       editingTask: null,
       filterName: "",
@@ -15,7 +15,6 @@ class App extends React.Component {
       sortAsc: true,
     };
     this.openForm = this.openForm.bind(this);
-    this.closeForm = this.closeForm.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
@@ -23,17 +22,6 @@ class App extends React.Component {
     this.openAddForm = this.openAddForm.bind(this);
     this.searchTask = this.searchTask.bind(this);
     this.sortTask = this.sortTask.bind(this);
-  }
-
-  componentDidMount() {
-    if (localStorage && localStorage.getItem("tasks")) {
-      this.setState({
-        tasks: JSON.parse(localStorage.getItem("tasks")),
-      });
-    } else
-      this.setState({
-        tasks: [],
-      });
   }
 
   openForm() {
@@ -44,21 +32,13 @@ class App extends React.Component {
   }
 
   openAddForm() {
-    if (!this.state.isDisplayForm || this.state.editingTask) {
-      this.setState({
-        isDisplayForm: true,
-        editingTask: null,
-      });
-    }
-  }
-
-  closeForm() {
-    if (this.state.isDisplayForm) {
-      this.setState({
-        isDisplayForm: false,
-        editingTask: null,
-      });
-    }
+    // if (!this.state.isDisplayForm || this.state.editingTask) {
+    //   this.setState({
+    //     isDisplayForm: true,
+    //     editingTask: null,
+    //   });
+    // }
+    this.props.openForm();
   }
 
   submitForm(taskName, status) {
@@ -74,20 +54,6 @@ class App extends React.Component {
         }
       }
     }
-
-    //Add task
-    else if (taskName) {
-      tasks.push({
-        id:
-          Math.random().toString(36).substring(2, 15) +
-          Math.random().toString(36).substring(2, 15),
-        name: taskName,
-        status: status,
-      });
-    }
-    this.setState({
-      tasks: tasks,
-    });
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
@@ -132,32 +98,28 @@ class App extends React.Component {
   }
 
   render() {
-    let tasks = [...this.state.tasks];
-    let { isDisplayForm, filterName, sortBy, sortAsc } = this.state;
-    if (filterName) {
-      tasks = tasks.filter(
-        (task) =>
-          task.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
-      );
-    }
-    if (sortBy) {
-      if (sortBy === "name") sortAsc = !sortAsc;
-      tasks.sort((task1, task2) => {
-        let check = task1[sortBy] > task2[sortBy];
-        return check === sortAsc ? -1 : 1;
-      });
-    }
+    let { filterName, sortBy, sortAsc } = this.state;
+    let { isDisplayForm } = this.props;
+    // if (filterName) {
+    //   tasks = tasks.filter(
+    //     (task) =>
+    //       task.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+    //   );
+    // }
+    // if (sortBy) {
+    //   if (sortBy === "name") sortAsc = !sortAsc;
+    //   tasks.sort((task1, task2) => {
+    //     let check = task1[sortBy] > task2[sortBy];
+    //     return check === sortAsc ? -1 : 1;
+    //   });
+    // }
     return (
       <div className="container mt-3">
         <h1 className="text-center mb-3">To do list</h1>
         <div className="row">
           {isDisplayForm ? (
             <div className="col-4">
-              <TaskForm
-                closeForm={this.closeForm}
-                submitForm={this.submitForm}
-                editingTask={this.state.editingTask}
-              />
+              <TaskForm editingTask={this.state.editingTask} />
             </div>
           ) : (
             ""
@@ -171,7 +133,6 @@ class App extends React.Component {
               sortTask={this.sortTask}
             />
             <TaskList
-              tasks={tasks}
               updateStatus={this.updateStatus}
               deleteTask={this.deleteTask}
               updateTask={this.updateTask}
@@ -183,4 +144,18 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isDisplayForm: state.form,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    openForm: () => {
+      dispatch(actions.openForm());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
