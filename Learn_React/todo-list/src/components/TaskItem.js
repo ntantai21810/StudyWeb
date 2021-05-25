@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as actions from "../actions/index";
 
 class TaskItem extends React.Component {
   render() {
@@ -45,4 +47,16 @@ class TaskItem extends React.Component {
   }
 }
 
-export default TaskItem;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    updateStatus: (index) => {
+      dispatch(actions.updateStatus(index));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);

@@ -16,7 +16,6 @@ class App extends React.Component {
     };
     this.openForm = this.openForm.bind(this);
     this.submitForm = this.submitForm.bind(this);
-    this.updateStatus = this.updateStatus.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
     this.openAddForm = this.openAddForm.bind(this);
@@ -54,15 +53,6 @@ class App extends React.Component {
         }
       }
     }
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }
-
-  updateStatus(index) {
-    let tasks = [...this.state.tasks];
-    tasks[index].status = !tasks[index].status;
-    this.setState({
-      tasks: tasks,
-    });
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
@@ -133,7 +123,6 @@ class App extends React.Component {
               sortTask={this.sortTask}
             />
             <TaskList
-              updateStatus={this.updateStatus}
               deleteTask={this.deleteTask}
               updateTask={this.updateTask}
             />

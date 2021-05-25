@@ -5,6 +5,7 @@ let data = JSON.parse(localStorage.getItem("tasks"));
 let initState = data ? data : [];
 
 let reducer = (state = initState, action) => {
+  let newState = [];
   switch (action.type) {
     case types.LIST_ALL:
       return state;
@@ -15,7 +16,19 @@ let reducer = (state = initState, action) => {
           Math.random().toString(36).substring(2, 15),
         ...action.task,
       };
-      let newState = [...initState, newTask];
+      newState = [...initState, newTask];
+      localStorage.setItem("tasks", JSON.stringify(newState));
+      return newState;
+    case types.UPDATE_STATUS:
+      newState = state.map((task, index) => {
+        if (index === action.index) {
+          return {
+            ...task,
+            status: !task.status,
+          };
+        }
+        return task;
+      });
       localStorage.setItem("tasks", JSON.stringify(newState));
       return newState;
     default:
