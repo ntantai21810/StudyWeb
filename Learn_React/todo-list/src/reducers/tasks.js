@@ -16,7 +16,7 @@ let reducer = (state = initState, action) => {
           Math.random().toString(36).substring(2, 15),
         ...action.task,
       };
-      newState = [...initState, newTask];
+      newState = [...state, newTask];
       localStorage.setItem("tasks", JSON.stringify(newState));
       return newState;
     case types.UPDATE_STATUS:
@@ -29,6 +29,16 @@ let reducer = (state = initState, action) => {
         }
         return task;
       });
+      localStorage.setItem("tasks", JSON.stringify(newState));
+      return newState;
+    case types.DELETE_TASK:
+      newState = state.filter((task, index) => index !== action.index);
+      localStorage.setItem("tasks", JSON.stringify(newState));
+      return newState;
+    case types.UPDATE_TASK:
+      newState = state.map((task) =>
+        task.id === action.task.id ? action.task : task
+      );
       localStorage.setItem("tasks", JSON.stringify(newState));
       return newState;
     default:

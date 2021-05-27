@@ -1,4 +1,3 @@
-import { bindActionCreators } from "redux";
 import * as types from "../constants/ActionTypes";
 
 export const listAll = () => {
@@ -26,15 +25,36 @@ export const closeForm = () => {
   };
 };
 
-export const editForm = () => {
-  return {
-    type: types.EDIT_FORM,
-  };
-};
-
 export const updateStatus = (index) => {
   return {
     type: types.UPDATE_STATUS,
     index,
+  };
+};
+
+export const deleteTask = (index) => {
+  return {
+    type: types.DELETE_TASK,
+    index,
+  };
+};
+
+export const editingTask = (task) => {
+  return {
+    type: types.EDITING_TASK,
+    task,
+  };
+};
+
+export const deleteEditingTask = () => {
+  return {
+    type: types.DELETE_EDITING_TASK,
+  };
+};
+
+export const updateTask = (task) => {
+  return {
+    type: types.UPDATE_TASK,
+    task,
   };
 };

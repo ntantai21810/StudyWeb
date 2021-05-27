@@ -9,7 +9,7 @@ class TaskForm extends React.Component {
       taskName: "",
       status: false,
     };
-    this.addTask = this.addTask.bind(this);
+    this.submitForm = this.submitForm.bind(this);
     this.cancelAddTask = this.cancelAddTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -17,7 +17,7 @@ class TaskForm extends React.Component {
   componentDidMount() {
     if (this.props.editingTask) {
       this.setState({
-        taskName: this.props.editingTask.name,
+        taskName: this.props.editingTask.taskName,
         status: this.props.editingTask.status,
       });
     }
@@ -26,7 +26,7 @@ class TaskForm extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.editingTask) {
       this.setState({
-        taskName: nextProps.editingTask.name,
+        taskName: nextProps.editingTask.taskName,
         status: nextProps.editingTask.status,
       });
     } else
@@ -36,8 +36,15 @@ class TaskForm extends React.Component {
       });
   }
 
-  addTask() {
-    this.props.onAddTask(this.state);
+  submitForm() {
+    if (this.props.editingTask) {
+      this.props.updateTask({
+        ...this.state,
+        id: this.props.editingTask.id,
+      });
+    } else {
+      this.props.onAddTask(this.state);
+    }
     this.cancelAddTask();
     this.props.closeForm();
   }
@@ -96,7 +103,7 @@ class TaskForm extends React.Component {
           </div>
         </div>
         <div className="task-control d-flex justify-content-around mb-3">
-          <button className="btn btn-primary" onClick={this.addTask}>
+          <button className="btn btn-primary" onClick={this.submitForm}>
             <i className="fas fa-plus mr-3"></i>
             {this.props.editingTask ? "Update" : "Add"}
           </button>
@@ -110,7 +117,9 @@ class TaskForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    editingTask: state.editingTask,
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -118,8 +127,12 @@ const mapDispatchToProps = (dispatch, props) => {
     onAddTask: (task) => {
       dispatch(actions.addTask(task));
     },
+    updateTask: (task) => {
+      dispatch(actions.updateTask(task));
+    },
     closeForm: () => {
       dispatch(actions.closeForm());
+      dispatch(actions.deleteEditingTask());
     },
   };
 };

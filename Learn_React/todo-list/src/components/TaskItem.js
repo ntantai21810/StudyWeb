@@ -31,7 +31,7 @@ class TaskItem extends React.Component {
         <td className="text-center d-flex justify-content-around">
           <button
             className="btn btn-warning text-white"
-            onClick={() => this.props.updateTask(this.props.index)}
+            onClick={() => this.props.editingTask(task)}
           >
             <i className="fas fa-pen mr-2"></i>Update
           </button>
@@ -55,6 +55,14 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     updateStatus: (index) => {
       dispatch(actions.updateStatus(index));
+    },
+    deleteTask: (index) => {
+      dispatch(actions.deleteTask(index));
+      dispatch(actions.closeForm());
+    },
+    editingTask: (task) => {
+      dispatch(actions.openForm());
+      dispatch(actions.editingTask(task));
     },
   };
 };
