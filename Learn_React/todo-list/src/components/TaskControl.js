@@ -7,10 +7,10 @@ class TaskControl extends React.Component {
     return (
       <div className="row mt-3">
         <div className="col-6">
-          <Search searchTask={this.props.searchTask} />
+          <Search />
         </div>
         <div className="col-2">
-          <Sort sortTask={this.props.sortTask} />
+          <Sort />
         </div>
       </div>
     );

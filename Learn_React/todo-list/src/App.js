@@ -5,30 +5,6 @@ import TaskList from "./components/TaskList";
 import { connect } from "react-redux";
 import * as actions from "./actions/index";
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.openForm = this.openForm.bind(this);
-    this.searchTask = this.searchTask.bind(this);
-    this.sortTask = this.sortTask.bind(this);
-  }
-
-  openForm() {
-    this.props.openForm();
-  }
-
-  searchTask(name) {
-    this.setState({
-      filterName: name,
-    });
-  }
-
-  sortTask(sortBy, sortAsc) {
-    this.setState({
-      sortBy: sortBy,
-      sortAsc: sortAsc,
-    });
-  }
-
   render() {
     let { isDisplayForm } = this.props;
     return (
@@ -43,13 +19,10 @@ class App extends React.Component {
             ""
           )}
           <div className={isDisplayForm ? "col-8" : "col-12"}>
-            <button className="btn btn-primary" onClick={this.openForm}>
+            <button className="btn btn-primary" onClick={this.props.openForm}>
               <i className="fas fa-plus mr-3"></i>Add task
             </button>
-            <TaskControl
-              searchTask={this.searchTask}
-              sortTask={this.sortTask}
-            />
+            <TaskControl />
             <TaskList />
           </div>
         </div>

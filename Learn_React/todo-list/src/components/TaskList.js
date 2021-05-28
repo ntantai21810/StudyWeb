@@ -17,8 +17,14 @@ class TaskList extends React.Component {
   }
 
   render() {
-    let { tasks } = this.props;
+    let { tasks, searchTask } = this.props;
     let { filterName, filterStatus } = this.props.filter;
+    if (searchTask) {
+      tasks = tasks.filter(
+        (task) =>
+          task.taskName.toLowerCase().indexOf(searchTask.toLowerCase()) !== -1
+      );
+    }
     if (filterName) {
       tasks = tasks.filter(
         (task) =>
@@ -81,6 +87,7 @@ const mapStateToProps = (state) => {
   return {
     tasks: state.tasks,
     filter: state.filterTask,
+    searchTask: state.searchTask,
   };
 };
 
