@@ -1,10 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as actions from "../actions/index";
 
 class Sort extends React.Component {
   handleChange = (e) => {
     let sortBy = e.target.value.split("-")[0];
-    let sortAsc = e.target.value.split("-")[1] === "Asc" ? true : false;
-    this.props.sortTask(sortBy, sortAsc);
+    let asc = e.target.value.split("-")[1] === "Asc" ? true : false;
+    this.props.sortTask({
+      sortBy,
+      asc,
+    });
   };
 
   render() {
@@ -23,4 +28,12 @@ class Sort extends React.Component {
   }
 }
 
-export default Sort;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sortTask: (sort) => {
+      dispatch(actions.sortTask(sort));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Sort);

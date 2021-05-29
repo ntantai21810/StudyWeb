@@ -4,6 +4,7 @@ import form from "./form";
 import editingTask from "./editingTask";
 import filterTask from "./filterTask";
 import searchTask from "./searchTask";
+import sortTask from "./sortTask";
 
 let reducer = combineReducers({
   tasks,
@@ -11,6 +12,7 @@ let reducer = combineReducers({
   editingTask,
   filterTask,
   searchTask,
+  sortTask,
 });
 
 export default reducer;

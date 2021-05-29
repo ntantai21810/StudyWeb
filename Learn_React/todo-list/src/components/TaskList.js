@@ -19,12 +19,17 @@ class TaskList extends React.Component {
   render() {
     let { tasks, searchTask } = this.props;
     let { filterName, filterStatus } = this.props.filter;
+    let { sortBy, asc } = this.props.sortTask;
+
+    //Search
     if (searchTask) {
       tasks = tasks.filter(
         (task) =>
           task.taskName.toLowerCase().indexOf(searchTask.toLowerCase()) !== -1
       );
     }
+
+    //Filter
     if (filterName) {
       tasks = tasks.filter(
         (task) =>
@@ -35,6 +40,29 @@ class TaskList extends React.Component {
       if (!filterStatus) return true;
       else return task.status === (filterStatus === "done" ? true : false);
     });
+
+    //Sort
+    if (sortBy === "name") {
+      if (asc)
+        tasks.sort((a, b) =>
+          a.taskName > b.taskName ? 1 : a.taskName < b.taskName ? -1 : 0
+        );
+      else
+        tasks.sort((a, b) =>
+          a.taskName < b.taskName ? 1 : a.taskName > b.taskName ? -1 : 0
+        );
+    }
+    if (sortBy === "status") {
+      if (asc)
+        tasks.sort((a, b) =>
+          a.status > b.status ? -1 : a.status < b.status ? 1 : 0
+        );
+      else
+        tasks.sort((a, b) =>
+          a.status < b.status ? -1 : a.status > b.status ? 1 : 0
+        );
+    }
+
     const taskItems = tasks.map((item, index) => (
       <TaskItem task={item} index={index} key={item.id} />
     ));
@@ -88,6 +116,7 @@ const mapStateToProps = (state) => {
     tasks: state.tasks,
     filter: state.filterTask,
     searchTask: state.searchTask,
+    sortTask: state.sortTask,
   };
 };
 
