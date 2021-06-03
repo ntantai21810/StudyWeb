@@ -44,9 +44,10 @@ class Product extends React.Component {
   }
   showRating(rating) {
     let stars = [];
-    for (let i = 0; i < rating; i++) stars.push(<i className="fa fa-star"></i>);
+    for (let i = 0; i < rating; i++)
+      stars.push(<i className="fa fa-star" key={i}></i>);
     for (let i = 0; i < 5 - rating; i++)
-      stars.push(<i className="fa fa-star-o"></i>);
+      stars.push(<i className="fa fa-star-o" key={i + 5}></i>);
     return stars;
   }
 }

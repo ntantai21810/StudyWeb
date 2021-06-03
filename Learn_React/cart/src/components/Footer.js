@@ -1,5 +1,4 @@
 import React from "react";
-import Product from "./Product";
 
 class Footer extends React.Component {
   render() {

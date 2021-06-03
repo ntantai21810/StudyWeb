@@ -1,5 +1,5 @@
 import Header from "./components/Header";
-import Products from "./components/Products";
+import ProductsContainer from "./containers/ProductsContainer";
 import Footer from "./components/Footer";
 import Message from "./components/Message";
 import Card from "./components/Cart";
@@ -11,7 +11,7 @@ function App() {
         <Header />
         <main id="mainContainer">
           <div className="container">
-            <Products />
+            <ProductsContainer />
             <Message />
             <Card />
           </div>

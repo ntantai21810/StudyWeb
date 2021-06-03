@@ -1,5 +1,4 @@
 import React from "react";
-import Product from "./Product";
 
 class CartResult extends React.Component {
   render() {
