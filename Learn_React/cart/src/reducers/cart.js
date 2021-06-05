@@ -17,6 +17,7 @@ const reducer = (state = initState, action) => {
               { product: action.product, quantity: state[i].quantity + 1 },
             ])
             .concat(state.slice(i + 1));
+          localStorage.setItem("cart", JSON.stringify(newState));
           return newState;
         }
       }
@@ -26,6 +27,7 @@ const reducer = (state = initState, action) => {
           quantity: 1,
         },
       ]);
+      localStorage.setItem("cart", JSON.stringify(newState));
       return newState;
 
     default:
