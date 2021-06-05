@@ -10,7 +10,7 @@ let initState = [
     inventory: 10,
   },
   {
-    id: 1,
+    id: 2,
     image:
       "https://cdn.tgdd.vn/Products/Images/42/220522/samsung-galaxy-note-20-ultra-vangdong-600x600-600x600.jpg",
     description: "This product is created by Samsung",
@@ -20,7 +20,7 @@ let initState = [
     inventory: 10,
   },
   {
-    id: 1,
+    id: 3,
     image:
       "https://bachlongmobile.com/media/catalog/product/cache/2/image/040ec09b1e35df139433887a97daa66f/x/i/xiaomi-redmi-note-4-1_3.jpg",
     description: "This product is created by Xiaomi",

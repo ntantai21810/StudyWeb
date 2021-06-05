@@ -26,12 +26,12 @@ class Product extends React.Component {
               <span className="left">{product.price}$</span>
               <span className="right">
                 <a
-                  href="https://www.google.com/"
                   className="btn-floating blue-gradient"
                   data-toggle="tooltip"
                   data-placement="top"
                   title=""
                   data-original-title="Add to Cart"
+                  onClick={() => this.props.addToCart(product)}
                 >
                   <i className="fa fa-shopping-cart"></i>
                 </a>

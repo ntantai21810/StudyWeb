@@ -2,7 +2,7 @@ import Header from "./components/Header";
 import ProductsContainer from "./containers/ProductsContainer";
 import Footer from "./components/Footer";
 import Message from "./components/Message";
-import Card from "./components/Cart";
+import CartContainer from "./containers/CartContainer";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
           <div className="container">
             <ProductsContainer />
             <Message />
-            <Card />
+            <CartContainer />
           </div>
         </main>
         <Footer />

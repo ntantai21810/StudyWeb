@@ -2,6 +2,7 @@ import React from "react";
 
 class CartResult extends React.Component {
   render() {
+    let { cart } = this.props;
     return (
       <tr>
         <td colSpan="3"></td>
@@ -12,7 +13,7 @@ class CartResult extends React.Component {
         </td>
         <td>
           <h4>
-            <strong>15$</strong>
+            <strong>{this.calculateTolTalPrice(cart)}$</strong>
           </h4>
         </td>
         <td colSpan="3">
@@ -27,6 +28,12 @@ class CartResult extends React.Component {
       </tr>
     );
   }
+
+  calculateTolTalPrice = (cart) => {
+    return cart.reduce((total, item) => {
+      return total + item.product.price * item.quantity;
+    }, 0);
+  };
 }
 
 export default CartResult;
