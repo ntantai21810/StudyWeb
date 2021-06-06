@@ -6,3 +6,10 @@ export const addToCart = (product, quantity) => {
     product,
   };
 };
+
+export const changeMessage = (message) => {
+  return {
+    type: types.CHANGE_MESSAGE,
+    message,
+  };
+};

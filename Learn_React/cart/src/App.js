@@ -1,7 +1,7 @@
 import Header from "./components/Header";
 import ProductsContainer from "./containers/ProductsContainer";
 import Footer from "./components/Footer";
-import Message from "./components/Message";
+import MessageContainer from "./containers/MessageContainer";
 import CartContainer from "./containers/CartContainer";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         <main id="mainContainer">
           <div className="container">
             <ProductsContainer />
-            <Message />
+            <MessageContainer />
             <CartContainer />
           </div>
         </main>

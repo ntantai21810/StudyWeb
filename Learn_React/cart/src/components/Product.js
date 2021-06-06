@@ -1,4 +1,5 @@
 import React from "react";
+import * as Messages from "../constants/Message";
 
 class Product extends React.Component {
   render() {
@@ -31,7 +32,7 @@ class Product extends React.Component {
                   data-placement="top"
                   title=""
                   data-original-title="Add to Cart"
-                  onClick={() => this.props.addToCart(product)}
+                  onClick={() => this.addToCart(product)}
                 >
                   <i className="fa fa-shopping-cart"></i>
                 </a>
@@ -42,6 +43,12 @@ class Product extends React.Component {
       </div>
     );
   }
+
+  addToCart = (product) => {
+    this.props.addToCart(product);
+    this.props.changeMessage(Messages.MSG_ADD_TO_CART_SUCCESS);
+  };
+
   showRating(rating) {
     let stars = [];
     for (let i = 0; i < rating; i++)

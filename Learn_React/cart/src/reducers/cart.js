@@ -10,7 +10,6 @@ const reducer = (state = initState, action) => {
     case types.ADD_TO_CART:
       for (let i = 0; i < state.length; i++) {
         if (state[i].product.id === action.product.id) {
-          console.log(state[i].product.id, action.product.id);
           newState = state
             .slice(0, i)
             .concat([

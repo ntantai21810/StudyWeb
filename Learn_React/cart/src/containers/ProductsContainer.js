@@ -9,7 +9,12 @@ class ProductsContainer extends React.Component {
   render() {
     let { products } = this.props;
     let allProducts = products.map((product, index) => (
-      <Product key={index} product={product} addToCart={this.props.addToCart} />
+      <Product
+        key={index}
+        product={product}
+        addToCart={this.props.addToCart}
+        changeMessage={this.props.changeMessage}
+      />
     ));
     return <Products products={products}>{allProducts}</Products>;
   }
@@ -27,6 +32,8 @@ ProductsContainer.propTypes = {
       inventory: PropTypes.number.isRequired,
     })
   ).isRequired,
+  addToCart: PropTypes.func.isRequired,
+  changeMessage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -39,6 +46,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (product) => {
       dispatch(actions.addToCart(product));
+    },
+    changeMessage: (message) => {
+      dispatch(actions.changeMessage(message));
     },
   };
 };
