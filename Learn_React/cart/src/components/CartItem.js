@@ -1,4 +1,5 @@
 import React from "react";
+import * as Messages from "../constants/Message";
 
 class CartItem extends React.Component {
   render() {
@@ -24,12 +25,14 @@ class CartItem extends React.Component {
             <label
               className="btn btn-sm btn-primary
                                                 btn-rounded waves-effect waves-light"
+              onClick={() => this.changeQuantityOfProduct(item.product, -1)}
             >
               <a href="https://www.google.com/">—</a>
             </label>
             <label
               className="btn btn-sm btn-primary
                                                 btn-rounded waves-effect waves-light"
+              onClick={() => this.changeQuantityOfProduct(item.product, 1)}
             >
               <a href="https://www.google.com/">+</a>
             </label>
@@ -44,6 +47,7 @@ class CartItem extends React.Component {
             data-placement="top"
             title=""
             data-original-title="Remove item"
+            onClick={() => this.deleteProduct(item.product)}
           >
             X
           </button>
@@ -51,6 +55,16 @@ class CartItem extends React.Component {
       </tr>
     );
   }
+
+  deleteProduct = (product) => {
+    this.props.deleteProduct(product);
+    this.props.changeMessage(Messages.MSG_DELETE_PRODUCT_IN_CART_SUCCESS);
+  };
+
+  changeQuantityOfProduct = (product, quantity) => {
+    this.props.changeQuantityOfProduct(product, quantity);
+    this.props.changeMessage(Messages.MSG_UPDATE_CART_SUCCESS);
+  };
 }
 
 export default CartItem;

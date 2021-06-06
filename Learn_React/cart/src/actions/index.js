@@ -13,3 +13,18 @@ export const changeMessage = (message) => {
     message,
   };
 };
+
+export const deleteProduct = (product) => {
+  return {
+    type: types.DELETE_PRODUCT,
+    product,
+  };
+};
+
+export const changeQuantityOfProduct = (product, quantity) => {
+  return {
+    type: types.CHANGE_QUANTITY_OF_PRODUCT,
+    product,
+    quantity,
+  };
+};
