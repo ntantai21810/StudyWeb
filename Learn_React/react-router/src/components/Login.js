@@ -30,7 +30,16 @@ class Login extends React.Component {
   render() {
     let user = JSON.parse(localStorage.getItem("user"));
     if (user) {
-      return <Redirect to="/products" />;
+      return (
+        <Redirect
+          to={{
+            pathname: "/products",
+            state: {
+              from: this.props.location,
+            },
+          }}
+        />
+      );
     }
 
     return (

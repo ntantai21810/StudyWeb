@@ -25,6 +25,9 @@ class Products extends React.Component {
       },
     ];
     let { match } = this.props;
+
+    console.log(this.props.location);
+
     return (
       <div>
         <ul className="list-group row text-center">

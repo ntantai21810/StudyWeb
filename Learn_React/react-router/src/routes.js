@@ -25,12 +25,14 @@ const routes = [
   {
     path: "/products",
     exact: false,
-    component: ({ match }) => <Products match={match} />,
+    component: ({ match, location }) => (
+      <Products match={match} location={location} />
+    ),
   },
   {
     path: "/login",
     exact: false,
-    component: () => <Login />,
+    component: ({ location }) => <Login location={location} />,
   },
   {
     path: "",
