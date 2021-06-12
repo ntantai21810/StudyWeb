@@ -2,14 +2,17 @@ import React from "react";
 
 class ProductItem extends React.Component {
   render() {
+    let { product, index } = this.props;
+    let productStatus = product.status ? "Stocking" : "Sold out";
+    let statusClass = product.status ? "primary" : "danger";
     return (
       <tr>
-        <td>1</td>
-        <td>1</td>
-        <td>Iphone 6 plus</td>
-        <td>500</td>
+        <td>{index + 1}</td>
+        <td>{product.id}</td>
+        <td>{product.name}</td>
+        <td>{product.price}</td>
         <td className="text-around">
-          <span className="badge bg-primary">Primary</span>
+          <span className={`badge bg-${statusClass}`}>{productStatus}</span>
         </td>
         <td>
           <button type="button" className="btn btn-primary">
