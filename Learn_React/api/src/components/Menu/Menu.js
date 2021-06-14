@@ -22,7 +22,7 @@ const MenuLink = ({ to, exact, name }) => (
       let itemClass = match ? "nav-item active" : "nav-item";
       return (
         <li className={itemClass}>
-          <Link class="nav-link" to={to}>
+          <Link className="nav-link" to={to}>
             {name}
           </Link>
         </li>
@@ -56,7 +56,7 @@ class Menu extends React.Component {
 
   showMenus = (menus) =>
     menus.map((menu, index) => (
-      <MenuLink to={menu.to} exact={menu.exact} name={menu.name} />
+      <MenuLink key={index} to={menu.to} exact={menu.exact} name={menu.name} />
     ));
 }
 
