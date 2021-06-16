@@ -1,6 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class ProductItem extends React.Component {
+  deleteProduct = (id) => {
+    this.props.deleteProduct(id);
+  };
+
   render() {
     let { product, index } = this.props;
     let productStatus = product.status ? "Stocking" : "Sold out";
@@ -15,10 +20,14 @@ class ProductItem extends React.Component {
           <span className={`badge bg-${statusClass}`}>{productStatus}</span>
         </td>
         <td>
-          <button type="button" className="btn btn-primary">
+          <Link to={`products/${product.id}/edit`} className="btn btn-primary">
             Update
-          </button>
-          <button type="button" className="btn btn-danger">
+          </Link>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => this.deleteProduct(product.id)}
+          >
             Delete
           </button>
         </td>

@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "name": "Iphone 7 plus",
+      "price": "100",
+      "status": false,
+      "id": 1
+    },
+    {
+      "name": "Samsung note 20",
+      "price": "200",
+      "status": true,
+      "id": 2
+    },
+    {
+      "name": "Oppo F1s",
+      "price": "200",
+      "status": true,
+      "id": 3
+    }
+  ]
+}
