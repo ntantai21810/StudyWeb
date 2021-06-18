@@ -2,47 +2,16 @@ import React from "react";
 import ProductList from "../../components/ProductList/ProductList";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import { connect } from "react-redux";
-import callAPI from "../../utils/callAPI";
 import { Link } from "react-router-dom";
 import * as Actions from "../../actions/index";
 
 class ProductListPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: [],
-    };
-  }
-
   componentDidMount() {
-    callAPI("products")
-      .then((res) => {
-        this.setState({
-          products: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.props.fetchProducts();
   }
-
-  deleteProduct = (id) => {
-    callAPI(`products/${id}`, "DELETE", null).then((res) => {
-      if (res.status === 200) {
-        let products = this.state.products.filter(
-          (product) => product.id !== id
-        );
-        this.setState({
-          products: products,
-        });
-      }
-    });
-  };
 
   render() {
-    // let { products } = this.props;
-    let products = this.state.products;
-
+    let { products } = this.props;
     return (
       <div>
         <Link to="/products/add" className="btn btn-primary mt-3">
@@ -60,7 +29,7 @@ class ProductListPage extends React.Component {
         key={index}
         index={index}
         product={product}
-        deleteProduct={this.deleteProduct}
+        deleteProduct={() => this.props.deleteProduct(product.id)}
       />
     ));
 }
@@ -74,7 +43,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: () => {
-      dispatch(Actions.fetchProducts());
+      dispatch(Actions.fetchProductsRequest());
+    },
+    deleteProduct: (id) => {
+      dispatch(Actions.deleteProductRequest(id));
     },
   };
 };
